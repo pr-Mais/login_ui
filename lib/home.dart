@@ -196,10 +196,10 @@ class _HomeState extends State<Home> {
                     child: Column(children: <Widget>[
                       Center(
                           child: Padding(
-                        padding: EdgeInsets.only(top: 50),
+                        padding: EdgeInsets.only(top: 20),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 240,
+                          height: 200,
                           child: Stack(
                             children: <Widget>[
                               Positioned(
@@ -263,7 +263,7 @@ class _HomeState extends State<Home> {
                             _passwordController, true),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Padding(
                         padding: EdgeInsets.only(
@@ -284,7 +284,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              height: 800,
+              height: MediaQuery.of(context).size.height/1.1,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
             ),
@@ -333,10 +333,10 @@ class _HomeState extends State<Home> {
                     child: Column(children: <Widget>[
                       Center(
                           child: Padding(
-                        padding: EdgeInsets.only(top: 50),
+                        padding: EdgeInsets.only(top: 20),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 240,
+                          height: 200,
                           child: Stack(
                             children: <Widget>[
                               Positioned(
@@ -418,7 +418,7 @@ class _HomeState extends State<Home> {
                             _passwordController, true),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Padding(
                         padding: EdgeInsets.only(
@@ -439,7 +439,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              height: 800,
+              height: MediaQuery.of(context).size.height/1.1,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
             ),
