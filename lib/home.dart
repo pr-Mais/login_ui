@@ -19,39 +19,48 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Color primary = Theme.of(context).primaryColor;
+    void initState() {
+      super.initState();
+    }
 
     //GO logo widget
     Widget logo() {
       return Center(
           child: Padding(
-        padding: EdgeInsets.only(top: 150),
+        padding: EdgeInsets.only(top: 120),
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 240,
           child: Stack(
             children: <Widget>[
               Positioned(
-                width: 150,
-                height: 150,
-                left: MediaQuery.of(context).size.width / 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  width: 150,
-                ),
-              ),
-              Positioned(
-                left: MediaQuery.of(context).size.width / 3.4,
-                top: 5,
-                child: Text(
-                  "GO",
-                  style: TextStyle(
-                    fontSize: 112,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+                  child: Container(
+                child: Align(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white),
+                    width: 150,
+                    height: 150,
                   ),
+                  alignment: Alignment.center,
                 ),
-                width: 190,
+                height: 154,
+              )),
+              Positioned(
+                child: Container(
+                    height: 154,
+                    width: MediaQuery.of(context).size.width,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "GO",
+                        style: TextStyle(
+                          fontSize: 120,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    )),
               ),
               Positioned(
                 width: 60,
@@ -87,9 +96,10 @@ class _HomeState extends State<Home> {
         child: TextField(
           controller: controller,
           obscureText: obsecure,
-          style: TextStyle(fontSize: 20, ),
+          style: TextStyle(
+            fontSize: 20,
+          ),
           decoration: InputDecoration(
-            
               hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               hintText: hint,
               enabledBorder: OutlineInputBorder(
@@ -193,98 +203,75 @@ class _HomeState extends State<Home> {
                     width: 50,
                   ),
                   SingleChildScrollView(
-                    child: Column(children: <Widget>[
-                      Center(
-                          child: Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 200,
+                          height: 140,
                           child: Stack(
                             children: <Widget>[
                               Positioned(
-                                width: 130,
-                                height: 130,
-                                left: MediaQuery.of(context).size.width / 3,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Theme.of(context).primaryColor),
-                                  width: 150,
-                                ),
-                              ),
-                              Positioned(
-                                left: MediaQuery.of(context).size.width / 3.1,
-                                top: 40,
-                                child: Text(
-                                  "LOGIN",
-                                  style: TextStyle(
-                                    fontSize: 41.5,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                child: Align(
+                                  child: Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Theme.of(context).primaryColor),
                                   ),
-                                ),
-                                width: 190,
-                              ),
-                              Positioned(
-                                width: 60,
-                                height: 60,
-                                top: 140,
-                                left: 260,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white),
+                                  alignment: Alignment.center,
                                 ),
                               ),
                               Positioned(
-                                width: 30,
-                                height: 30,
-                                top: 200,
-                                left: 230,
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white),
+                                  child: Text(
+                                    "LOGIN",
+                                    style: TextStyle(
+                                      fontSize: 48,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      )),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _input(Icon(Icons.email), "EMAIL",
-                            _emailController, false),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: _input(Icon(Icons.lock), "PASSWORD",
-                            _passwordController, true),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 20,
-                            right: 20,
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: Container(
-                          child: _button("LOGIN", Colors.white, primary,
-                              primary, Colors.white, _loginUser),
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20, top: 60),
+                          child: _input(Icon(Icons.email), "EMAIL",
+                              _emailController, false),
                         ),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                    ]),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: _input(Icon(Icons.lock), "PASSWORD",
+                              _passwordController, true),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Container(
+                            child: _button("LOGIN", Colors.white, primary,
+                                primary, Colors.white, _loginUser),
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height/1.1,
+              height: MediaQuery.of(context).size.height / 1.1,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
             ),
@@ -331,84 +318,69 @@ class _HomeState extends State<Home> {
                   ),
                   SingleChildScrollView(
                     child: Column(children: <Widget>[
-                      Center(
-                          child: Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 200,
-                          child: Stack(
-                            children: <Widget>[
-                              Positioned(
-                                width: 130,
-                                height: 130,
-                                left: MediaQuery.of(context).size.width / 3,
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 140,
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                              child: Align(
                                 child: Container(
+                                  width: 130,
+                                  height: 130,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Theme.of(context).primaryColor),
-                                  width: 150,
                                 ),
+                                alignment: Alignment.center,
                               ),
-                              Positioned(
-                                left: MediaQuery.of(context).size.width / 3.1,
-                                top: 30,
+                            ),
+                            Positioned(
+                              child: Container(
+                                padding: EdgeInsets.only(bottom: 25, right: 40),
                                 child: Text(
                                   "REGI",
                                   style: TextStyle(
-                                    fontSize: 40,
+                                    fontSize: 44,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
                                 ),
-                                width: 190,
+                                alignment: Alignment.center,
                               ),
-                              Positioned(
-                                left: MediaQuery.of(context).size.width / 2.6,
-                                top: 60,
-                                child: Text(
-                                  "STER",
-                                  style: TextStyle(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                            ),
+                            Positioned(
+                              child: Align(
+                                child: Container(
+                                  padding: EdgeInsets.only(top: 40, left: 28),
+                                  width: 130,
+                                  child: Text(
+                                    "STER",
+                                    style: TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                                width: 190,
+                                alignment: Alignment.center,
                               ),
-                              Positioned(
-                                width: 60,
-                                height: 60,
-                                top: 140,
-                                left: 260,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              Positioned(
-                                width: 30,
-                                height: 30,
-                                top: 200,
-                                left: 230,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      )),
+                      ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                          top: 60,
+                        ),
                         child: _input(Icon(Icons.account_circle),
                             "DISPLAY NAME", _nameController, false),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
                         child: _input(Icon(Icons.email), "EMAIL",
                             _emailController, false),
                       ),
@@ -416,9 +388,6 @@ class _HomeState extends State<Home> {
                         padding: EdgeInsets.only(bottom: 20),
                         child: _input(Icon(Icons.lock), "PASSWORD",
                             _passwordController, true),
-                      ),
-                      SizedBox(
-                        height: 20,
                       ),
                       Padding(
                         padding: EdgeInsets.only(
@@ -433,13 +402,13 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                     ]),
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height/1.1,
+              height: MediaQuery.of(context).size.height / 1.1,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
             ),
