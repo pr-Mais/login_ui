@@ -25,12 +25,11 @@ class _HomeState extends State<Home> {
 
     //GO logo widget
     Widget logo() {
-      return Center(
-          child: Padding(
-        padding: EdgeInsets.only(top: 120),
+      return Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: 240,
+          height: 220,
           child: Stack(
             children: <Widget>[
               Positioned(
@@ -42,16 +41,13 @@ class _HomeState extends State<Home> {
                     width: 150,
                     height: 150,
                   ),
-                  alignment: Alignment.center,
                 ),
                 height: 154,
               )),
               Positioned(
                 child: Container(
                     height: 154,
-                    width: MediaQuery.of(context).size.width,
                     child: Align(
-                      alignment: Alignment.center,
                       child: Text(
                         "GO",
                         style: TextStyle(
@@ -63,20 +59,20 @@ class _HomeState extends State<Home> {
                     )),
               ),
               Positioned(
-                width: 60,
-                height: 60,
-                top: 140,
-                left: 260,
+                width: MediaQuery.of(context).size.width * 0.15,
+                height: MediaQuery.of(context).size.width * 0.15,
+                bottom: MediaQuery.of(context).size.height * 0.046,
+                right: MediaQuery.of(context).size.width * 0.22,
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                 ),
               ),
               Positioned(
-                width: 30,
-                height: 30,
-                top: 200,
-                left: 230,
+                width: MediaQuery.of(context).size.width * 0.08,
+                height: MediaQuery.of(context).size.width * 0.08,
+                bottom: 0,
+                right: MediaQuery.of(context).size.width * 0.32,
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
@@ -85,7 +81,7 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-      ));
+      );
     }
 
     //input widget
