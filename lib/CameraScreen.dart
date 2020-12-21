@@ -35,7 +35,7 @@ class _CameraScreenState extends State<CameraScreen> {
         endTime: endTime,
         onEnd: () {
           _onStop();
-          UrlLauncher.launch("tel://9553606688");
+          UrlLauncher.launch("tel://9160065588");
           Navigator.push(_globalKey.currentContext,
               MaterialPageRoute(builder: (context) => HomePage()));
         });
