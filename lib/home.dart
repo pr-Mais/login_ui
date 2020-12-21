@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_ui/services/AuthenticationService.dart';
+import 'package:provider/provider.dart';
 import 'HomePage.dart';
 import 'clipper.dart';
 
@@ -151,20 +153,29 @@ class _HomeState extends State<Home> {
 
     //login and register fuctions
 
-    void _loginUser() {
+    Future<void> _loginUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
-      _emailController.clear();
-      _passwordController.clear();
+      bool check = await Provider.of<AuthenticationService>(
+              _scaffoldKey.currentContext,
+              listen: false)
+          .signIn(
+              _emailController.text.trim(), _passwordController.text.trim());
+      if (check)
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
     }
 
-    void _registerUser() {
+    Future<void> _registerUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
       _displayName = _nameController.text;
       _phone = _phoneController.text;
+      bool check = await Provider.of<AuthenticationService>(
+              _scaffoldKey.currentContext,
+              listen: false)
+          .signUp(
+              _emailController.text.trim(), _passwordController.text.trim());
       _emailController.clear();
       _passwordController.clear();
       _nameController.clear();

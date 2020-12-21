@@ -1,39 +1,111 @@
+// import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:login_ui/Constants.dart';
+import 'package:login_ui/ProfileListUi.dart';
 
-class ProfilePage extends StatefulWidget {
-  ProfilePage({Key key}) : super(key: key);
-
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
+    ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
+
+    var profileInfo = Expanded(
+      child: Column(
         children: <Widget>[
-          Center(
-              child: RaisedButton(
-                  color: Color(0xffED553b),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(360.0)),
-                  onPressed: () {},
-                  child: SizedBox(
-                    height: 200,
-                    width: 200,
+          Container(
+            height: kSpacingUnit.w * 30,
+            width: kSpacingUnit.w * 30,
+            margin: EdgeInsets.only(top: kSpacingUnit.w * 3),
+            child: Stack(
+              children: <Widget>[
+                CircleAvatar(
+                  radius: kSpacingUnit.w * 15,
+                  // backgroundColor: Colors.brown.shade800,
+                  child: Text(
+                    'CS',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 100,
+                      color: Colors.black,
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    height: kSpacingUnit.w * 2.5,
+                    width: kSpacingUnit.w * 2.5,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      shape: BoxShape.circle,
+                    ),
                     child: Center(
-                        child: Text("ALERT",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                              color: Colors.white,
-                              fontFamily: 'Montserrat',
-                            ))),
-                  )))
+                      heightFactor: kSpacingUnit.w * 1.5,
+                      widthFactor: kSpacingUnit.w * 1.5,
+                      child: Icon(
+                        LineAwesomeIcons.pen,
+                        color: kDarkPrimaryColor,
+                        size: ScreenUtil().setSp(kSpacingUnit.w * 1.5),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: kSpacingUnit.w * 2),
+          Text(
+            'Chaitanya Sanakkayala',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+            ),
+          ),
+          SizedBox(height: kSpacingUnit.w * 0.5),
+          Text(
+            'devachatu@gmail.com',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Montserrat',
+            ),
+          ),
+          SizedBox(height: kSpacingUnit.w * 2),
         ],
       ),
+    );
+
+    var header = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(width: kSpacingUnit.w * 3),
+        Icon(
+          LineAwesomeIcons.arrow_left,
+          size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+        ),
+        profileInfo,
+        // themeSwitcher,
+        SizedBox(width: kSpacingUnit.w * 3),
+      ],
+    );
+
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+          body: Column(
+            children: <Widget>[
+              SizedBox(height: kSpacingUnit.w * 5),
+              header,
+            ],
+          ),
+        );
+      },
     );
   }
 }

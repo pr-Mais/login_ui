@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:login_ui/CameraScreen.dart';
+import 'package:login_ui/PoliceStations.dart';
+import 'package:login_ui/popUpDialog.dart';
+import 'package:login_ui/services/AuthenticationService.dart';
+import 'package:provider/provider.dart';
 import 'ContactsPage.dart';
 import 'ProfilePage.dart';
+import 'home.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -88,12 +94,38 @@ class _HomePageState extends State<HomePage>
                       color: Colors.black,
                       fontFamily: 'Montserrat',
                     )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Current Location:  ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontFamily: 'Montserrat',
+                        )),
+                    Text(" Kukutpally, Hyderabad",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontFamily: 'Montserrat',
+                        )),
+                  ],
+                ),
                 Center(
                     child: RaisedButton(
                         color: Color(0xffED553b),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(360.0)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CameraScreen()));
+                        },
                         child: SizedBox(
                           height: 200,
                           width: 200,
@@ -118,7 +150,7 @@ class _HomePageState extends State<HomePage>
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(10.0)),
                       child: SizedBox(
-                        height: 80,
+                        height: 100,
                         width: 160,
                         child: Center(
                           child: Text(
@@ -131,7 +163,12 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PoliceStations()));
+                      },
                     ),
                     RaisedButton(
                       highlightElevation: 0.0,
@@ -142,7 +179,7 @@ class _HomePageState extends State<HomePage>
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(10.0)),
                       child: SizedBox(
-                        height: 80,
+                        height: 100,
                         width: 160,
                         child: Center(
                           child: Text(
@@ -155,7 +192,18 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<AuthenticationService>(context,
+                                listen: false)
+                            .signOut();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
+                        // popDialog(
+                        //     title: "Emergency Alert",
+                        //     context: context,
+                        //     content:
+                        //         "Sent to \n 1. Aakash \n 2. Anurag\n 3. Daddy\n 4. Dinakar\n 5. Karan Sharma\n\n Video clip Sent");
+                      },
                     )
                   ],
                 )
