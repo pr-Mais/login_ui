@@ -43,6 +43,9 @@ dependencies:
   provider:
   firebase_messaging:
   http:
+  geolocator: ^4.0.3
+  geocoder:
+
   # animated_theme_switcher: ^1.0.5
 
 dev_dependencies:

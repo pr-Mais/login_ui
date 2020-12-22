@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/widgets.dart';
 // import 'package:geolocator/geolocator.dart';
@@ -13,11 +15,39 @@ class PoliceStations extends StatefulWidget {
 
 class _PoliceStationsState extends State<PoliceStations> {
   Set<Marker> _markers = {};
+  LatLng _center ;
+  bool isLoading = false;
+  LatLng _currentLocation;
+  Position currentLocation;
   Completer<GoogleMapController> _controller = Completer();
-  // Location _location = Location();
-  static const LatLng _center =
-      const LatLng(17.479952520074985, 78.33599582289442);
+  void initState() {
+    super.initState();
+    isLoading = false;
+    getUserLocation();
+  }
+  Future<Position> locateUser() async {
+    return Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  }
 
+  getUserLocation() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    currentLocation = await locateUser();
+    setState(() {
+      _center = LatLng(currentLocation.latitude, currentLocation.longitude);
+    });
+    print(
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    setState(() {
+      isLoading = false;
+    });
+    print('center $_center');
+
+
+  }
   Future<void> _onMapCreated(GoogleMapController controller) async {
     setState(() {
       _markers.addAll([
@@ -60,8 +90,9 @@ class _PoliceStationsState extends State<PoliceStations> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GoogleMap(
+    return
+      Container(
+      child: isLoading?CircularProgressIndicator():GoogleMap(
         onMapCreated: _onMapCreated,
         markers: _markers,
         initialCameraPosition: CameraPosition(

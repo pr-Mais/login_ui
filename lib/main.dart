@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<MessageService>(context, listen: false).init(context: context);
+    // Provider.of<MessageService>(context, listen: false).init(context: context);
     final firebaseUser = context.watch<User>();
     if (firebaseUser != null) return HomePage();
     return Home();

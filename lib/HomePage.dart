@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:login_ui/CameraScreen.dart';
 import 'package:login_ui/PoliceStations.dart';
 import 'package:login_ui/popUpDialog.dart';
@@ -7,9 +8,12 @@ import 'package:login_ui/services/AuthenticationService.dart';
 import 'package:login_ui/services/MessageService.dart';
 import 'package:provider/provider.dart';
 import 'ContactsPage.dart';
+import 'package:geolocator/geolocator.dart';
 import 'ProfilePage.dart';
 import 'home.dart';
+import 'package:geocoder/geocoder.dart';
 
+import 'package:flutter/services.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -27,29 +31,64 @@ class _HomePageState extends State<HomePage>
     new Tab(text: 'Profile'),
   ];
   TabController tabController;
-
+  LatLng _center ;
+  LatLng _currentLocation;
+  Position currentLocation;
+  bool isLoading = false;
+  var first;
   @override
   void initState() {
     super.initState();
+    isLoading = false;
     tabController = new TabController(length: myTabs.length, vsync: this);
     tabController.addListener(_handleTabSelection);
+    Provider.of<MessageService>(context, listen: false).init(context: context);
+    getUserLocation();
+  }
+  Future<Position> locateUser() async {
+    return Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  }
+
+  getUserLocation() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    currentLocation = await locateUser();
+    setState(() {
+      _center = LatLng(currentLocation.latitude, currentLocation.longitude);
+    });
+    print(
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    print('center $_center');
+
+    final coordinates = new Coordinates(_center.latitude, _center.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    first = addresses.first;
+    setState(() {
+      isLoading = false;
+    });
+
+    print("${first.featureName} : ${first.addressLine}");
   }
 
   _handleTabSelection() {
-    setState(() {
+    // setState(() {
       _selectedIndex = tabController.index;
       print(_selectedIndex);
-    });
+    // });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    tabController.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   tabController.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Theme.of(context).primaryColor,
@@ -106,14 +145,15 @@ class _HomePageState extends State<HomePage>
                           color: Colors.black,
                           fontFamily: 'Montserrat',
                         )),
-                    Text(" Kukutpally, Hyderabad",
+                    isLoading?CircularProgressIndicator():
+                    Text(first.addressLine.toString().substring(0,28)+"..",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
                           color: Colors.black,
                           fontFamily: 'Montserrat',
-                        )),
+                        ),overflow: TextOverflow.ellipsis,),
                   ],
                 ),
                 Center(
