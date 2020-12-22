@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_ui/HomePage.dart';
 import 'package:login_ui/services/AuthenticationService.dart';
+import 'package:login_ui/services/MessageService.dart';
 import 'package:provider/provider.dart';
 import 'home.dart';
 import 'package:camera/camera.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
           StreamProvider(
             create: (context) =>
                 context.read<AuthenticationService>().authStateChanges,
+          ),
+          Provider<MessageService>(
+            create: (_) => MessageService(),
           )
         ],
         child: MaterialApp(
@@ -49,6 +53,7 @@ class MyApp extends StatelessWidget {
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Provider.of<MessageService>(context, listen: false).init(context: context);
     final firebaseUser = context.watch<User>();
     if (firebaseUser != null) return HomePage();
     return Home();

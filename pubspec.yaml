@@ -39,7 +39,10 @@ dependencies:
   flutter_screenutil: ^1.0.2
   firebase_core:
   firebase_auth:
+  cloud_firestore:
   provider:
+  firebase_messaging:
+  http:
   # animated_theme_switcher: ^1.0.5
 
 dev_dependencies:

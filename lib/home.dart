@@ -174,11 +174,11 @@ class _HomeState extends State<Home> {
       bool check = await Provider.of<AuthenticationService>(
               _scaffoldKey.currentContext,
               listen: false)
-          .signUp(
+          .signUp(_nameController.text.trim(), _phoneController.text.trim(),
               _emailController.text.trim(), _passwordController.text.trim());
-      _emailController.clear();
-      _passwordController.clear();
-      _nameController.clear();
+      if (check)
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
     }
 
     void _loginSheet() {

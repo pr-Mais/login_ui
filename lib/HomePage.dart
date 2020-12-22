@@ -4,6 +4,7 @@ import 'package:login_ui/CameraScreen.dart';
 import 'package:login_ui/PoliceStations.dart';
 import 'package:login_ui/popUpDialog.dart';
 import 'package:login_ui/services/AuthenticationService.dart';
+import 'package:login_ui/services/MessageService.dart';
 import 'package:provider/provider.dart';
 import 'ContactsPage.dart';
 import 'ProfilePage.dart';
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage>
                 Text("Emergency Help\n Needed?",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       fontSize: 40,
                       color: Colors.black,
                       fontFamily: 'Montserrat',
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage>
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                          fontSize: 17,
                           color: Colors.black,
                           fontFamily: 'Montserrat',
                         )),
@@ -117,6 +118,7 @@ class _HomePageState extends State<HomePage>
                 ),
                 Center(
                     child: RaisedButton(
+                        elevation: 20,
                         color: Color(0xffED553b),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(360.0)),
@@ -132,8 +134,8 @@ class _HomePageState extends State<HomePage>
                           child: Center(
                               child: Text("ALERT",
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 40,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 42,
                                     color: Colors.white,
                                     fontFamily: 'Montserrat',
                                   ))),
@@ -192,17 +194,14 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        Provider.of<AuthenticationService>(context,
-                                listen: false)
-                            .signOut();
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Home()));
-                        // popDialog(
-                        //     title: "Emergency Alert",
-                        //     context: context,
-                        //     content:
-                        //         "Sent to \n 1. Aakash \n 2. Anurag\n 3. Daddy\n 4. Dinakar\n 5. Karan Sharma\n\n Video clip Sent");
+                      onPressed: () async {
+                        Provider.of<MessageService>(context, listen: false)
+                            .sendMessage();
+                        popDialog(
+                            title: "Emergency Alert",
+                            context: context,
+                            content:
+                                "Sent to \n 1. Aakash \n 2. Anurag\n 3. Daddy\n 4. Dinakar\n 5. Karan Sharma\n\n Video clip Sent");
                       },
                     )
                   ],

@@ -4,6 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login_ui/Constants.dart';
 import 'package:login_ui/ProfileListUi.dart';
+import 'package:login_ui/services/AuthenticationService.dart';
+import 'package:provider/provider.dart';
+
+import 'home.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -75,7 +79,35 @@ class ProfilePage extends StatelessWidget {
               fontFamily: 'Montserrat',
             ),
           ),
-          SizedBox(height: kSpacingUnit.w * 2),
+          SizedBox(height: kSpacingUnit.w * 4),
+          Divider(
+            thickness: 2,
+          ),
+          ListTile(
+            leading: Icon(Icons.power_settings_new),
+            onTap: () {
+              Provider.of<AuthenticationService>(context, listen: false)
+                  .signOut();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
+            },
+            title: Text("LogOut",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  // color: Colors.black,
+                  fontFamily: 'Montserrat',
+                )),
+          ),
+          Divider(
+            thickness: 2,
+          ),
+          SizedBox(height: kSpacingUnit.w * 10),
+          Text(
+            "SE Project\n\nDeva Chaitanya\nKaran\nVersion 1",
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:login_ui/services/DatabaseService.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class ContactsPage extends StatefulWidget {
   ContactsPage({Key key}) : super(key: key);
@@ -25,14 +27,15 @@ class _ContactsPageState extends State<ContactsPage> {
     setState(() {
       _contacts = contacts;
     });
-
-    // Lazy load thumbnails after rendering initial contacts.
     for (final contact in contacts) {
       ContactsService.getAvatar(contact).then((avatar) {
-        if (avatar == null) return; // Don't redraw if no change.
+        if (avatar == null) return;
         setState(() => contact.avatar = avatar);
       });
     }
+    _selectedContacts =
+        await DatabaseService(uid: auth.FirebaseAuth.instance.currentUser.uid)
+            .getContact();
   }
 
   Widget build(BuildContext context) {
@@ -61,9 +64,13 @@ class _ContactsPageState extends State<ContactsPage> {
                       itemBuilder: (BuildContext context, int index) {
                         Contact c = _selectedContacts?.elementAt(index);
                         return GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            _selectedContacts.remove(c);
+                            await DatabaseService(
+                                    uid: auth
+                                        .FirebaseAuth.instance.currentUser.uid)
+                                .setContact(_selectedContacts);
                             setState(() {
-                              _selectedContacts.remove(c);
                               print(_selectedContacts);
                             });
                           },
@@ -112,13 +119,15 @@ class _ContactsPageState extends State<ContactsPage> {
                           return Column(
                             children: <Widget>[
                               ListTile(
-                                onTap: () {
-                                  print("hi");
-
+                                onTap: () async {
                                   setState(() {
                                     _selectedContacts.add(c);
-                                    print(_selectedContacts);
                                   });
+                                  await DatabaseService(
+                                          uid: auth.FirebaseAuth.instance
+                                              .currentUser.uid)
+                                      .setContact(_selectedContacts);
+                                  print(_selectedContacts.length);
                                 },
                                 leading: (c.avatar != null &&
                                         c.avatar.length > 0)

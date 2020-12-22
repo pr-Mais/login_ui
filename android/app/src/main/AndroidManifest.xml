@@ -18,8 +18,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="login_ui"
         android:icon="@mipmap/ic_launcher">
-        <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyBI9bc5URTaluieuTsDPGXu84C4RLcmiMA"/>    
+        <meta-data 
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBI9bc5URTaluieuTsDPGXu84C4RLcmiMA"/>   
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -38,6 +39,14 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            
         </activity>
+
+            
+
     </application>
 </manifest>
