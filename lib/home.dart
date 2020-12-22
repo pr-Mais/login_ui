@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:login_ui/services/AuthenticationService.dart';
+import 'package:provider/provider.dart';
+import 'HomePage.dart';
 import 'clipper.dart';
 
 class Home extends StatefulWidget {
@@ -9,9 +12,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController _emailController = new TextEditingController();
+  TextEditingController _phoneController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
   String _email;
+  String _phone;
   String _password;
   String _displayName;
   bool _obsecure = false;
@@ -26,7 +31,8 @@ class _HomeState extends State<Home> {
     //GO logo widget
     Widget logo() {
       return Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 220,
@@ -49,9 +55,9 @@ class _HomeState extends State<Home> {
                     height: 154,
                     child: Align(
                       child: Text(
-                        "GO",
+                        "BSafe",
                         style: TextStyle(
-                          fontSize: 120,
+                          fontSize: 53,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,
                         ),
@@ -147,20 +153,32 @@ class _HomeState extends State<Home> {
 
     //login and register fuctions
 
-    void _loginUser() {
+    Future<void> _loginUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
-      _emailController.clear();
-      _passwordController.clear();
+      bool check = await Provider.of<AuthenticationService>(
+              _scaffoldKey.currentContext,
+              listen: false)
+          .signIn(
+              _emailController.text.trim(), _passwordController.text.trim());
+      if (check)
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
     }
 
-    void _registerUser() {
+    Future<void> _registerUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
       _displayName = _nameController.text;
-      _emailController.clear();
-      _passwordController.clear();
-      _nameController.clear();
+      _phone = _phoneController.text;
+      bool check = await Provider.of<AuthenticationService>(
+              _scaffoldKey.currentContext,
+              listen: false)
+          .signUp(_nameController.text.trim(), _phoneController.text.trim(),
+              _emailController.text.trim(), _passwordController.text.trim());
+      if (check)
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
     }
 
     void _loginSheet() {
@@ -223,7 +241,7 @@ class _HomeState extends State<Home> {
                                   child: Text(
                                     "LOGIN",
                                     style: TextStyle(
-                                      fontSize: 48,
+                                      fontSize: 40,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -333,11 +351,11 @@ class _HomeState extends State<Home> {
                             ),
                             Positioned(
                               child: Container(
-                                padding: EdgeInsets.only(bottom: 25, right: 40),
+                                padding: EdgeInsets.only(bottom: 15, right: 40),
                                 child: Text(
                                   "REGI",
                                   style: TextStyle(
-                                    fontSize: 44,
+                                    fontSize: 35,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
@@ -348,12 +366,12 @@ class _HomeState extends State<Home> {
                             Positioned(
                               child: Align(
                                 child: Container(
-                                  padding: EdgeInsets.only(top: 40, left: 28),
+                                  padding: EdgeInsets.only(top: 40, left: 30),
                                   width: 130,
                                   child: Text(
                                     "STER",
                                     style: TextStyle(
-                                      fontSize: 40,
+                                      fontSize: 35,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -379,6 +397,13 @@ class _HomeState extends State<Home> {
                         ),
                         child: _input(Icon(Icons.email), "EMAIL",
                             _emailController, false),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: _input(Icon(Icons.phone), "PHONE NUMBER",
+                            _phoneController, false),
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 20),
@@ -460,7 +485,7 @@ class _HomeState extends State<Home> {
                 child: ClipPath(
                   child: Container(
                     color: Colors.white,
-                    height: 300,
+                    height: 350,
                   ),
                   clipper: BottomWaveClipper(),
                 ),
