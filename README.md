@@ -1,7 +1,6 @@
 # Login UI
 
 Simple Login UI design made with Flutter SDK. 
-Made by [@pr_Mais](https://twitter.com/pr_Mais).
 <br>
 
 **_Preview:_** 
